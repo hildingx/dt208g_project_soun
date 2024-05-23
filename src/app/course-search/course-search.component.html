@@ -1,6 +1,12 @@
 <h2>Kurser</h2>
+
+<div class="filter">
+    <label for="filter">Filtrera kurser:</label>
+    <input type="text" id="filter" [(ngModel)]="filterValue" (input)="applyFilter()">
+</div>
+
 <ul>
-    <li *ngFor="let course of courseList">
+    <li *ngFor="let course of filteredCourseList">
         {{ course.courseCode }}
         {{ course.courseName }}
         {{ course.points }}
