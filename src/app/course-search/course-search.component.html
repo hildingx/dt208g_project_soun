@@ -5,6 +5,14 @@
     <input type="text" id="filter" [(ngModel)]="filterValue" (input)="applyFilter()">
 </div>
 
+<div class="filter">
+    <label for="subject">Välj ämne:</label>
+    <select id="subject" [(ngModel)]="subjectFilter" (change)="applyFilter()">
+        <option value="">Alla ämnen</option>
+        <option *ngFor="let subject of subjects" [value]="subject">{{ subject }}</option>
+    </select>
+</div>
+
 <ul>
     <li *ngFor="let course of filteredCourseList">
         {{ course.courseCode }}

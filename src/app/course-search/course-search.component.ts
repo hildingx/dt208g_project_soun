@@ -17,6 +17,8 @@ export class CourseSearchComponent {
   courseList: Course[] = [];
   filteredCourseList: Course[] = [];
   filterValue: string = "";
+  subjectFilter: string = '';
+  subjects: string[] = [];
 
   constructor(private courseData: CourseDataService, private scheduleService: ScheduleService) {}
 
@@ -25,13 +27,20 @@ export class CourseSearchComponent {
     this.courseData.getCourses().subscribe(data => {
       this.courseList = data;
       this.filteredCourseList = data;
+      this.subjects = this.getUniqueSubjects(data);
     });
   }
 
+  getUniqueSubjects(courses: Course[]): string[] {
+    const subjects = courses.map(course => course.subject);
+    return Array.from(new Set(subjects)).sort();
+  }
+
   applyFilter(): void {
-    this.filteredCourseList = this.courseList.filter((course) =>
-      course.courseCode.toLowerCase().includes(this.filterValue.toLowerCase()) ||
-      course.courseName.toLowerCase().includes(this.filterValue.toLowerCase())
+    this.filteredCourseList = this.courseList.filter(course =>
+      (course.courseCode.toLowerCase().includes(this.filterValue.toLowerCase()) ||
+       course.courseName.toLowerCase().includes(this.filterValue.toLowerCase())) &&
+      (this.subjectFilter === '' || course.subject === this.subjectFilter)
     );
   }
 
