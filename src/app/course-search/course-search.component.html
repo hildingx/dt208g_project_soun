@@ -5,6 +5,7 @@
         {{ course.courseName }}
         {{ course.points }}
         {{ course.subject }}
-        {{ course.syllabus }}
+        <a href="{{ course.syllabus }}" target="_blank">Kursplan</a>
+        <button (click)="addToSchedule(course)">Lägg till</button>
     </li>
 </ul>

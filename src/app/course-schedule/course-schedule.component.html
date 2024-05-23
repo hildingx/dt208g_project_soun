@@ -1,1 +1,9 @@
-<p>course-schedule works!</p>
+<h2>Mitt ramschema</h2>
+<ul>
+  <li *ngFor="let course of courseSchedule">
+    {{ course.courseCode }} - {{ course.courseName }} - {{ course.points }}
+    <button (click)="removeCourse(course.courseCode)">Ta bort</button>
+  </li>
+</ul>
+
+<p>Totalt antal poäng: {{ totalPoints }}</p>
