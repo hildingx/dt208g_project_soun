@@ -1,0 +1,33 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    cursor: pointer;
+    background-color: #f9f9f9;
+}
+
+th:hover {
+    background-color: #f1f1f1;
+}
+
+thead span {
+    margin-left: 5px;
+}
+
+.filter {
+    margin-bottom: 20px;
+}
+
+.pagination-controls {
+    margin-top: 20px;
+    text-align: center;
+}

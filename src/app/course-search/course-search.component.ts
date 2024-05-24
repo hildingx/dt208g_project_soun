@@ -4,11 +4,12 @@ import { CourseDataService } from '../services/course-data.service';
 import { CommonModule } from '@angular/common';
 import { ScheduleService } from '../services/schedule.service';
 import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-course-search',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgxPaginationModule],
   templateUrl: './course-search.component.html',
   styleUrl: './course-search.component.css'
 })
@@ -19,6 +20,12 @@ export class CourseSearchComponent {
   filterValue: string = "";
   subjectFilter: string = '';
   subjects: string[] = [];
+  sortColumn: keyof Course | '' = '';
+  sortDirection: string = 'asc';
+
+  //Paginering
+  p: number = 1;
+  itemsPerPage: number = 10;
 
   constructor(private courseData: CourseDataService, private scheduleService: ScheduleService) {}
 
@@ -42,6 +49,28 @@ export class CourseSearchComponent {
        course.courseName.toLowerCase().includes(this.filterValue.toLowerCase())) &&
       (this.subjectFilter === '' || course.subject === this.subjectFilter)
     );
+    if (this.sortColumn) {
+      this.sortData(this.sortColumn);
+    }
+  }
+
+  sortData(column: keyof Course): void {
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
+
+    this.filteredCourseList.sort((a, b) => {
+      let comparison = 0;
+      if (a[column] > b[column]) {
+        comparison = 1;
+      } else if (a[column] < b[column]) {
+        comparison = -1;
+      }
+      return this.sortDirection === 'asc' ? comparison : -comparison;
+    });
   }
 
   addToSchedule(course: Course) {
