@@ -1,3 +1,15 @@
+.page-search {
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.margin15 {
+    margin: 0 15px;
+}
+
 h1 {
     margin: 30px 0;
     font-weight: 500;
@@ -40,7 +52,6 @@ select:focus {
 
 .table-container {
     max-width: 100%;
-    overflow-x: auto;
 }
 
 table {
@@ -93,7 +104,7 @@ tr:nth-of-type(2n) {
     background: none;
     border: none;
     color: #031b35;
-    font-size: 1.5em;
+    font-size: 1em;
     cursor: pointer;
     padding: 2px 10px;
     display: inline-flex;
@@ -147,6 +158,15 @@ tr:nth-of-type(2n) {
 }
 
 @media (max-width: 720px) {
+    table {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 590px) {
+    table {
+        font-size: 1em;
+    }
 
     .filters {
         flex-direction: column;
@@ -179,11 +199,15 @@ tr:nth-of-type(2n) {
         text-transform: capitalize;
     }
 
+    tr:nth-of-type(2n) {
+        background: hsl(0 0% 0% / 0.05);
+    }
+
     .add-button-container {
         display: flex;
         align-items: center;
         justify-content: center;
-      }
+    }
 
     .button-cell::before {
         content: none;

@@ -1,31 +1,36 @@
-<h1>Mitt ramschema</h1>
+<div class="page-schedule">
+  <div class="margin15">
+    <h1>Mitt ramschema</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Kurskod</th>
-      <th>Kursnamn</th>
-      <th>Poäng</th>
-      <th>Ta bort</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let course of courseSchedule">
-      <td data-cell="kurskod">{{ course.courseCode }}</td>
-      <td data-cell="kurskod">{{ course.courseName }}</td>
-      <td data-cell="kurskod">{{ course.points }}p</td>
-      <td data-cell="lägg till" class="button-cell">
-        <div class="remove-button-container">
-          <button class="remove-button" aria-label="Ta bort kurs" (click)="removeCourse(course.courseCode)">-</button>
-          <span class="add-text" (click)="removeCourse(course.courseCode)">Ta bort</span>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+    <table>
+      <thead>
+        <tr>
+          <th>Kurskod</th>
+          <th>Kursnamn</th>
+          <th>Poäng</th>
+          <th>Ta bort</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of courseSchedule">
+          <td data-cell="kurskod">{{ course.courseCode }}</td>
+          <td data-cell="kurskod">{{ course.courseName }}</td>
+          <td data-cell="kurskod">{{ course.points }}p</td>
+          <td data-cell="lägg till" class="button-cell">
+            <div class="remove-button-container">
+              <button class="remove-button" aria-label="Ta bort kurs" (click)="removeCourse(course.courseCode)">
+                <i class="fas fa-minus"></i></button>
+              <span class="add-text" (click)="removeCourse(course.courseCode)">Ta bort</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-<p class="total-points">Totalt antal poäng: <strong>{{ totalPoints }}p</strong></p>
+    <p class="total-points">Totalt antal poäng: <strong>{{ totalPoints }}p</strong></p>
 
-<div *ngIf="showRemoved" class="notification">
-  <i class="fas fa-check"></i> {{ showRemovedMessage }}
+    <div *ngIf="showRemoved" class="notification">
+      <i class="fas fa-check"></i> {{ showRemovedMessage }}
+    </div>
+  </div>
 </div>
