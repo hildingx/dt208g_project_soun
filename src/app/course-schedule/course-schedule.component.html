@@ -1,9 +1,31 @@
-<h2>Mitt ramschema</h2>
-<ul>
-  <li *ngFor="let course of courseSchedule">
-    {{ course.courseCode }} - {{ course.courseName }} - {{ course.points }}
-    <button (click)="removeCourse(course.courseCode)">Ta bort</button>
-  </li>
-</ul>
+<h1>Mitt ramschema</h1>
 
-<p>Totalt antal poäng: {{ totalPoints }}</p>
+<table>
+  <thead>
+    <tr>
+      <th>Kurskod</th>
+      <th>Kursnamn</th>
+      <th>Poäng</th>
+      <th>Ta bort</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let course of courseSchedule">
+      <td data-cell="kurskod">{{ course.courseCode }}</td>
+      <td data-cell="kurskod">{{ course.courseName }}</td>
+      <td data-cell="kurskod">{{ course.points }}p</td>
+      <td data-cell="lägg till" class="button-cell">
+        <div class="remove-button-container">
+          <button class="remove-button" aria-label="Ta bort kurs" (click)="removeCourse(course.courseCode)">-</button>
+          <span class="add-text" (click)="removeCourse(course.courseCode)">Ta bort</span>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="total-points">Totalt antal poäng: <strong>{{ totalPoints }}p</strong></p>
+
+<div *ngIf="showRemoved" class="notification">
+  <i class="fas fa-check"></i> {{ showRemovedMessage }}
+</div>

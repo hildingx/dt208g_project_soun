@@ -1,14 +1,19 @@
-<nav>
-  <ul>
-    <li><a routerLink="/courses">Kurser</a></li>
-    <li><a routerLink="/schedule">Mitt ramschema</a></li>
-  </ul>
-</nav>
+<div class="page-container">
+  <header>
+    <img [src]="university_logo" alt="University Logo" class="logo">
+  </header>
+  <nav>
+    <ul>
+      <li><a routerLink="/courses" routerLinkActive="active-link">Kurser</a></li>
+      <li><a routerLink="/schedule" routerLinkActive="active-link">Mitt ramschema</a></li>
+    </ul>
+  </nav>
 
-<main>
-  <router-outlet></router-outlet>
-</main>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
 
-<footer>
-  <p>&copy; 2024 South University</p>
-</footer>
+  <footer>
+    <p>&copy; 2024 South University</p>
+  </footer>
+</div>

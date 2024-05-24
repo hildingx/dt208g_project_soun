@@ -12,8 +12,11 @@ import { ScheduleService } from '../services/schedule.service';
 })
 export class CourseScheduleComponent {
   courseSchedule: Course[] = [];
-
   totalPoints: number = 0;
+
+  //Notifiering
+  showRemoved = false;
+  showRemovedMessage = '';
 
   constructor(private scheduleService: ScheduleService) {}
 
@@ -26,6 +29,15 @@ export class CourseScheduleComponent {
     this.scheduleService.removeCourse(courseCode);
     this.courseSchedule = this.scheduleService.getSchedule();
     this.totalPoints = this.scheduleService.getTotalPoints();
+    this.showNotification(`Kursen ${courseCode} är borttagen från ramschemat.`);
+  }
+
+  showNotification(message: string) {
+    this.showRemovedMessage = message;
+    this.showRemoved = true;
+    setTimeout(() => {
+      this.showRemoved = false;
+    }, 3000); // Stänger notisen efter 3 sekunder
   }
 }
 

@@ -25,7 +25,11 @@ export class CourseSearchComponent {
 
   //Paginering
   p: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 15;
+
+  //Notifiering
+  showAdded = false;
+  showAddedMessage = '';
 
   constructor(private courseData: CourseDataService, private scheduleService: ScheduleService) {}
 
@@ -75,5 +79,14 @@ export class CourseSearchComponent {
 
   addToSchedule(course: Course) {
     this.scheduleService.addCourse(course);
+    this.showNotification(`Kursen ${course.courseName} är tillagd i ramschemat.`);
+  }
+
+  showNotification(message: string) {
+    this.showAddedMessage = message;
+    this.showAdded = true;
+    setTimeout(() => {
+      this.showAdded = false;
+    }, 3000); // Stänger notisen efter 3 sekunder
   }
 }

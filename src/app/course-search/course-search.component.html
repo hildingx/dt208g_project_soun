@@ -1,19 +1,20 @@
-<h2>Kurser</h2>
+<h1>Kurser</h1>
+<div class="filters">
+  <div class="filter">
+      <label for="filter">Filtrera kurser:</label>
+      <input type="text" id="filter" [(ngModel)]="filterValue" (input)="applyFilter()">
+  </div>
 
-<div class="filter">
-    <label for="filter">Filtrera kurser:</label>
-    <input type="text" id="filter" [(ngModel)]="filterValue" (input)="applyFilter()">
+  <div class="filter">
+      <label for="subject">Välj ämne:</label>
+      <select id="subject" [(ngModel)]="subjectFilter" (change)="applyFilter()">
+          <option value="">Alla ämnen</option>
+          <option *ngFor="let subject of subjects" [value]="subject">{{ subject }}</option>
+      </select>
+  </div>
 </div>
-
-<div class="filter">
-    <label for="subject">Välj ämne:</label>
-    <select id="subject" [(ngModel)]="subjectFilter" (change)="applyFilter()">
-        <option value="">Alla ämnen</option>
-        <option *ngFor="let subject of subjects" [value]="subject">{{ subject }}</option>
-    </select>
-</div>
-
-<table>
+<div class="table-container">
+  <table>
     <thead>
       <tr>
         <th (click)="sortData('courseCode')">Kurskod <span *ngIf="sortColumn === 'courseCode'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
@@ -21,19 +22,30 @@
         <th (click)="sortData('points')">Poäng <span *ngIf="sortColumn === 'points'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
         <th (click)="sortData('subject')">Ämne <span *ngIf="sortColumn === 'subject'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
         <th>Kursplan</th>
-        <th>Åtgärder</th>
+        <th>Lägg till</th>
       </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let course of filteredCourseList | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
-        <td>{{ course.courseCode }}</td>
-        <td>{{ course.courseName }}</td>
-        <td>{{ course.points }} hp</td>
-        <td>{{ course.subject }}</td>
-        <td><a href="{{ course.syllabus }}" target="_blank">Kursplan</a></td>
-        <td><button (click)="addToSchedule(course)">Lägg till</button></td>
+      <tr *ngFor="let course of filteredCourseList | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
+        <td data-cell="kurskod">{{ course.courseCode }}</td>
+        <td data-cell="kursnamn">{{ course.courseName }}</td>
+        <td data-cell="poäng">{{ course.points }}p</td>
+        <td data-cell="ämne">{{ course.subject }}</td>
+        <td data-cell="kursplan"><a href="{{ course.syllabus }}" target="_blank" aria-label="Kursplan"><i class="fas fa-file-alt"></i></a></td>
+        <td data-cell="lägg till" class="button-cell">
+          <div class="add-button-container">
+            <button class="add-button" aria-label="Lägg till kurs" (click)="addToSchedule(course)">+</button>
+            <span class="add-text" (click)="addToSchedule(course)">Lägg till</span>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
-
+</div>
+<div class="pagination">
   <pagination-controls (pageChange)="p = $event" previousLabel="Föregående" nextLabel="Nästa"></pagination-controls>
+</div>
+
+<div *ngIf="showAdded" class="notification">
+  <i class="fas fa-check"></i> {{ showAddedMessage }}
+</div>
