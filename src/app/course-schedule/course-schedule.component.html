@@ -2,6 +2,7 @@
   <div class="margin15">
     <h1>Mitt ramschema</h1>
 
+    <!-- Tabell för att visa tillagda kurser i ramschemat -->
     <table>
       <thead>
         <tr>
@@ -12,14 +13,17 @@
         </tr>
       </thead>
       <tbody>
+        <!-- Iterera över kurser i ramschemat och visa i tabell -->
         <tr *ngFor="let course of courseSchedule">
           <td data-cell="kurskod">{{ course.courseCode }}</td>
           <td data-cell="kurskod">{{ course.courseName }}</td>
           <td data-cell="kurskod">{{ course.points }}p</td>
           <td data-cell="lägg till" class="button-cell">
             <div class="remove-button-container">
+              <!-- Knapp för att ta bort kurs i ramschemat -->
               <button class="remove-button" aria-label="Ta bort kurs" (click)="removeCourse(course.courseCode)">
                 <i class="fas fa-minus"></i></button>
+              <!-- Klickbar text för att ta bort kurs i ramschemat / Visas vid max-width 590px -->
               <span class="add-text" (click)="removeCourse(course.courseCode)">Ta bort</span>
             </div>
           </td>
@@ -27,8 +31,10 @@
       </tbody>
     </table>
 
+    <!-- Visa totalpoäng för kurserna i ramschemat -->
     <p class="total-points">Totalt antal poäng: <strong>{{ totalPoints }}p</strong></p>
 
+    <!-- Notifiering som visas vid borttagning av kurs -->
     <div *ngIf="showRemoved" class="notification">
       <i class="fas fa-check"></i> {{ showRemovedMessage }}
     </div>

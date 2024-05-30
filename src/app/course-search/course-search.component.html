@@ -1,12 +1,16 @@
 <div class="page-search">
   <div class="margin15">
     <h1>Kurser</h1>
+
+    <!-- Filtreringssektion -->
     <div class="filters">
+      <!-- Textfiltrering -->
       <div class="filter">
           <label for="filter">Filtrera kurser:</label>
           <input type="text" id="filter" [(ngModel)]="filterValue" (input)="applyFilter()">
       </div>
 
+      <!-- Ämnesfiltrering -->
       <div class="filter">
           <label for="subject">Välj ämne:</label>
           <select id="subject" [(ngModel)]="subjectFilter" (change)="applyFilter()">
@@ -15,9 +19,12 @@
           </select>
       </div>
     </div>
+
+    <!-- Kurstabell -->
     <div class="table-container">
       <table>
         <thead>
+          <!-- Tabellhuvud med klickbara rubriker för sortering -->
           <tr>
             <th (click)="sortData('courseCode')">Kurskod <span *ngIf="sortColumn === 'courseCode'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
             <th (click)="sortData('courseName')">Kursnamn <span *ngIf="sortColumn === 'courseName'">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
@@ -28,6 +35,7 @@
           </tr>
         </thead>
         <tbody>
+          <!-- Iterera över filtrerade kurser och visa dem i tabell i realtid -->
           <tr *ngFor="let course of filteredCourseList | paginate: { itemsPerPage: itemsPerPage, currentPage: p }">
             <td data-cell="kurskod">{{ course.courseCode }}</td>
             <td data-cell="kursnamn">{{ course.courseName }}</td>
@@ -36,9 +44,11 @@
             <td data-cell="kursplan"><a href="{{ course.syllabus }}" target="_blank" aria-label="Kursplan"><i class="fas fa-file-alt"></i></a></td>
             <td data-cell="lägg till" class="button-cell">
               <div class="add-button-container">
+                <!-- Knapp för att lägga till kurs till ramschemat -->
                 <button class="add-button" aria-label="Lägg till kurs" (click)="addToSchedule(course)">
                   <i class="fas fa-plus"></i>
                 </button>
+                <!-- Klickbar text för att lägga till kurs till ramschemat / Visas vid max-width 590px -->
                 <span class="add-text" (click)="addToSchedule(course)">Lägg till</span>
               </div>
             </td>
@@ -46,10 +56,13 @@
         </tbody>
       </table>
     </div>
+
+    <!-- Paginering -->
     <div class="pagination">
       <pagination-controls (pageChange)="p = $event" previousLabel="Föregående" nextLabel="Nästa"></pagination-controls>
     </div>
 
+    <!-- Notifiering som visas när kurs läggs till -->
     <div *ngIf="showAdded" class="notification">
       <i class="fas fa-check"></i> {{ showAddedMessage }}
     </div>

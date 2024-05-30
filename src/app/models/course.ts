@@ -1,3 +1,4 @@
+//Interface för kurs
 export interface Course {
     courseCode: string,
     courseName: string,

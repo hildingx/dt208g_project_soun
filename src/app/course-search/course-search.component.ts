@@ -15,26 +15,29 @@ import { NgxPaginationModule } from 'ngx-pagination';
 })
 export class CourseSearchComponent {
   //Egenskaper
-  courseList: Course[] = [];
-  filteredCourseList: Course[] = [];
-  filterValue: string = "";
-  subjectFilter: string = '';
-  subjects: string[] = [];
-  sortColumn: keyof Course | '' = '';
-  sortDirection: string = 'asc';
+  courseList: Course[] = []; //Lista med alla kurser
+  filteredCourseList: Course[] = []; //Lista med filtrerade kurser
+  filterValue: string = ""; //Input vid textfiltrering
+  subjectFilter: string = ''; //Input vid ämnesfiltrering
+  subjects: string[] = []; //Unika ämnen för dropdown
+  sortColumn: keyof Course | '' = ''; //Sorteringskolumn
+  sortDirection: string = 'asc'; //Sorteringsriktning
 
   //Paginering
   p: number = 1;
-  itemsPerPage: number = 15;
+  itemsPerPage: number = 15; //Antal kurser per sida
 
   //Notifiering
-  showAdded = false;
-  showAddedMessage = '';
+  showAdded = false; //Visningsstatus för notifiering
+  showAddedMessage = ''; //Notifieringsmeddelande
 
   constructor(private courseData: CourseDataService, private scheduleService: ScheduleService) {}
 
   //Metoder
+
+  //Körs när komponenten initiers
   ngOnInit() {
+    //Hämta kurser och unika ämnen från kursdata servicen / metoden för att sortera ut unika ämnen
     this.courseData.getCourses().subscribe(data => {
       this.courseList = data;
       this.filteredCourseList = data;
@@ -42,30 +45,37 @@ export class CourseSearchComponent {
     });
   }
 
+  //Sortera ut unika ämnen
   getUniqueSubjects(courses: Course[]): string[] {
     const subjects = courses.map(course => course.subject);
     return Array.from(new Set(subjects)).sort();
   }
 
+  //Filtrera kurslista baserat på filtervärden
   applyFilter(): void {
     this.filteredCourseList = this.courseList.filter(course =>
       (course.courseCode.toLowerCase().includes(this.filterValue.toLowerCase()) ||
        course.courseName.toLowerCase().includes(this.filterValue.toLowerCase())) &&
       (this.subjectFilter === '' || course.subject === this.subjectFilter)
     );
+    //Sortera listan om en sorteringskolumn är vald
     if (this.sortColumn) {
       this.sortData(this.sortColumn);
     }
   }
 
+  //Sortera kurslista baserat på vald kolumn och riktning
   sortData(column: keyof Course): void {
     if (this.sortColumn === column) {
+      //Ändra sorteringsriktning om samma kolumn klickas igen
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
+      //Sortera ny kolumn och riktning
       this.sortColumn = column;
       this.sortDirection = 'asc';
     }
-
+    
+    //Sortera listan
     this.filteredCourseList.sort((a, b) => {
       let comparison = 0;
       if (a[column] > b[column]) {
@@ -77,16 +87,18 @@ export class CourseSearchComponent {
     });
   }
 
+  //Lägg till kurs i ramschemat och visa notifiering
   addToSchedule(course: Course) {
     this.scheduleService.addCourse(course);
     this.showNotification(`Kursen ${course.courseName} är tillagd i ramschemat.`);
   }
 
+  //Visa notifiering med meddelande om tillagd kurs i tre sekunder
   showNotification(message: string) {
     this.showAddedMessage = message;
     this.showAdded = true;
     setTimeout(() => {
       this.showAdded = false;
-    }, 3000); // Stänger notisen efter 3 sekunder
+    }, 3000);
   }
 }

@@ -7,11 +7,13 @@ import { Course } from '../models/course';
   providedIn: 'root'
 })
 export class CourseDataService {
-
+  //URL till json med kursdata
   private url:string = "assets/miun_courses.json";
 
+  //Injecerar HttpClient för att utföra HTTP-anrop
   constructor(private http: HttpClient) { }
 
+  //Hämtar kursdata från json och returnerar en observable av course-arrayen
   getCourses(): Observable<Course[]> {
     return this.http.get<Course[]>(this.url);
   }

@@ -1,27 +1,23 @@
-# SounCourses
+# DT208G - Projekt 
 
+Alexander Hilding
+
+## Konstruktion
+Projektet initierades med Angular CLI. Applikationen består av flera komponenter, tjänster och en modell för att hantera kursdata och ramschemat.
+
+### Komponenter
+- `CourseSearchComponent`: Ansvarig för att visa och söka bland kurser i tabellform. Inkluderar metoder för filtrering, sortering och paginering av kursdata, samt notifiering vid tillagd kurs i ramschemat.
+- `CourseScheduleComponent`: Ansvarig för att visa och hantera det valda ramschemat. Inkluderar metoder för att lägga till / ta bort kurser och beräkna totala poäng, samt notifiering vid bortagen kurs i ramschemat.
+
+### Modeller
+- `Course`: Ett interface som representerar kursdata och används för att typsäkra data.
+
+### Services
+- `CourseDataService`: Ansvarig för att hämta kursdata från en extern JSON-fil via Angulars `HttpClient`. Använder Observables för att hantera asynkron datahämtning.
+- `ScheduleService`: Ansvarig för att hantera ramschemat. Lagrar och hämtar kurser från `localStorage` och tillhandahåller metoder för att lägga till, ta bort och beräkna totala poäng.
+
+## Funktion
+Webbapplikationen syftar till att visa och hantera kurser från ett universitet. Användare kan söka bland kurser, filtrera och sortera resultaten, samt lägga till kurser till sitt ramschema. Ramschemat visar de valda kurserna och den totala mängden högskolepoäng. Data lagras i `localStorage` för att bevara användarens ramschema mellan sidladdningar.
+
+## Angular
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.4.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
