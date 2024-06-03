@@ -231,3 +231,8 @@ tr:nth-of-type(2n) {
     }
 }
 
+@media (max-width: 490px) {
+    .pagination {
+        font-size: 0.9em;
+    }
+}

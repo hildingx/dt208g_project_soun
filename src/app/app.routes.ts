@@ -5,6 +5,6 @@ import { CourseScheduleComponent } from './course-schedule/course-schedule.compo
 export const routes: Routes = [
     { path: "courses", component: CourseSearchComponent },
     { path: "schedule", component: CourseScheduleComponent},
-    { path: "", redirectTo: "course-search", pathMatch: "full" },
+    { path: "", redirectTo: "courses", pathMatch: "full" },
     { path: "**", redirectTo: "courses", pathMatch: "full" }
 ];
