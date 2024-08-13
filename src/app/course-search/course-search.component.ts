@@ -89,8 +89,12 @@ export class CourseSearchComponent {
 
   //Lägg till kurs i ramschemat och visa notifiering
   addToSchedule(course: Course) {
-    this.scheduleService.addCourse(course);
-    this.showNotification(`Kursen ${course.courseName} är tillagd i ramschemat.`);
+    const courseAdded = this.scheduleService.addCourse(course);
+    if (courseAdded) {
+      this.showNotification(`Kursen ${course.courseName} är tillagd i ramschemat.`);
+    } else {
+      this.showNotification(`Kursen ${course.courseName} finns redan i ramschemat.`);
+    }
   }
 
   //Visa notifiering med meddelande om tillagd kurs i tre sekunder

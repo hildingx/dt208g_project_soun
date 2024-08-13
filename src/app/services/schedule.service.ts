@@ -17,15 +17,26 @@ export class ScheduleService {
   }
 
   //Lägger till kurs i ramschemat och sparar uppdaterat schema till localstorage
-  addCourse(course: Course): void {
+  addCourse(course: Course): boolean {
     const schedule = this.getSchedule();
-    schedule.push(course);
-    localStorage.setItem(this.scheduleKey, JSON.stringify(schedule));
+
+    //Kontroll om kurs redan är tillagd
+    const courseExists = schedule.some((existingCourse) => existingCourse.courseCode === course.courseCode);
+
+    if (!courseExists) {
+      schedule.push(course);
+      localStorage.setItem(this.scheduleKey, JSON.stringify(schedule));
+      return true;
+    } else {
+      return false;
+    }
+    
   }
 
   //Tar bort kurs från ramschema och sparar uppdaterat schema till localstorage
   removeCourse(courseCode: string): void {
     let schedule = this.getSchedule();
+    
     schedule = schedule.filter(course => course.courseCode !== courseCode);
     localStorage.setItem(this.scheduleKey, JSON.stringify(schedule));
   }

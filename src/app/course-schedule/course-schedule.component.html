@@ -16,8 +16,8 @@
         <!-- Iterera över kurser i ramschemat och visa i tabell -->
         <tr *ngFor="let course of courseSchedule">
           <td data-cell="kurskod">{{ course.courseCode }}</td>
-          <td data-cell="kurskod">{{ course.courseName }}</td>
-          <td data-cell="kurskod">{{ course.points }}p</td>
+          <td data-cell="kursnamn">{{ course.courseName }}</td>
+          <td data-cell="poäng">{{ course.points }}p</td>
           <td data-cell="lägg till" class="button-cell">
             <div class="remove-button-container">
               <!-- Knapp för att ta bort kurs i ramschemat -->

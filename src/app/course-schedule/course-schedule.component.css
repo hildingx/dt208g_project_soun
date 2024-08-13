@@ -91,7 +91,7 @@ tr:nth-of-type(2n) {
     color: #4caf50;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 430px) {
     th {
         display: none;
     }
