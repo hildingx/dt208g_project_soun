@@ -50,6 +50,11 @@ select:focus {
     outline: none;
 }
 
+.course-count {
+    font-size: 1.2em;
+    text-align: right;
+}
+
 .table-container {
     max-width: 100%;
 }

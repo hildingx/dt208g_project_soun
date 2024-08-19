@@ -22,6 +22,7 @@ export class CourseSearchComponent {
   subjects: string[] = []; //Unika ämnen för dropdown
   sortColumn: keyof Course | '' = ''; //Sorteringskolumn
   sortDirection: string = 'asc'; //Sorteringsriktning
+  courseCount: number = 0; //Antal kurser i filtrerade listan
 
   //Paginering
   p: number = 1;
@@ -41,6 +42,7 @@ export class CourseSearchComponent {
     this.courseData.getCourses().subscribe(data => {
       this.courseList = data;
       this.filteredCourseList = data;
+      this.courseCount = this.filteredCourseList.length; //Initialt antal kurser
       this.subjects = this.getUniqueSubjects(data);
     });
   }
@@ -58,6 +60,9 @@ export class CourseSearchComponent {
        course.courseName.toLowerCase().includes(this.filterValue.toLowerCase())) &&
       (this.subjectFilter === '' || course.subject === this.subjectFilter)
     );
+
+    this.courseCount = this.filteredCourseList.length; //Uppdatera antal kurser efter filtrering
+
     //Sortera listan om en sorteringskolumn är vald
     if (this.sortColumn) {
       this.sortData(this.sortColumn);
